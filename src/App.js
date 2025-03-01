@@ -1,24 +1,74 @@
 
-import './App.css';
+import React, { useContext } from "react";
+import { Header } from "./components/header/header";
+import { SearchMovies } from "./pages/search-movies/search-movies";
+import { Movies } from "./pages/movies/movies";
+import { Quiz } from "./pages/quiz/quiz";
+import { MoviesProvider, tab, MoviesContext } from "./contexts/movies-context";
+import "./App.css";
+import "bootstrap-icons/font/bootstrap-icons.css" 
 
-function App() {
+
+ 
+const Tabs = ()=>{
+  const {setActiveTab, activeTab} = useContext(MoviesContext);
+
+  const getTabClasses = (tab) => {
+    return `nav-link ${activeTab === tab ? "active" : ""}`;
+  };
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ul className="nav nav-tabs">
+       <li className="nav-item">
+          <button
+            onClick={() => setActiveTab(tab.search)}
+            className={getTabClasses(tab.search)}
+          >
+             Search Movies
+          </button>
+        </li>
+        <li className="nav-item">
+            <button 
+             onClick={() => setActiveTab(tab.movies)}
+             className={getTabClasses(tab.movies)} 
+            >
+               My Movie List
+             </button>
+        </li>
+        <li className="nav-item">
+            <button 
+             onClick={() => setActiveTab(tab.quiz)}
+             className={getTabClasses(tab.quiz)}
+            >
+                Quiz
+            </button>
+        </li>
+     </ul>
+  );
+};
+
+const Layout =()=>{
+  const { activeTab } = useContext(MoviesContext);
+
+  return (
+    <>
+      {activeTab === tab.search && <SearchMovies />}
+      {activeTab === tab.movies && <Movies />}
+      {activeTab === tab.quiz && <Quiz />}
+    </>
+  );
+};
+
+ 
+function App() {
+   return (
+    <MoviesProvider> 
+      <div className="App">
+        <Header />
+        <Tabs/>
+        <Layout />
+      </div>
+    </MoviesProvider>
   );
 }
 
