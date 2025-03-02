@@ -4,7 +4,7 @@ import { quizApi } from "../../api/quiz.api";
 import { Loading } from "./components/loading/loading";
 import { Error } from "./components/error/error";
 import { StartScreen } from "./components/start-screen/start-screen";
-import { Progress } from "./components/proggress/proggress";
+import { Progress } from "./components/progress/progress";
 import { Questions } from "./components/questions/questions";
 import { Footer } from "./components/footer/footer";
 import { FinishScreen } from "./components/finish-screen/finish-screen";
