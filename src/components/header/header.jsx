@@ -6,15 +6,16 @@ import "./header.css";
 export const Header = ()=>{
   const {searchQuery, onSearch, activeTab} = useContext(MoviesContext);
   const inputRef = useRef(null);
-
-   useEffect(()=>{
+  
+  useEffect(()=>{
     inputRef?.current?.focus();
    },[]); 
   
   return (
       <header className="bg-secondary text-white p-3 d-flex ">
         <div className="logo">
-          <span><BiSolidMoviePlay /></span>
+        <i class="bi bi-film"></i>
+         <span><BiSolidMoviePlay /></span>
           <h1>My Movies</h1>
         </div>
         {activeTab === tab.search && (

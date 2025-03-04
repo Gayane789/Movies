@@ -31,7 +31,7 @@ export class BaseApi {
   //    }
   // }
 
-  getFullUrl(endpoint) {
+ getFullUrl(endpoint) {
       return `${this.baseUrl}${endpoint}`;
   }
 };
