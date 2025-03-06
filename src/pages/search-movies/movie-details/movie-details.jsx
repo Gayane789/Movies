@@ -126,7 +126,7 @@ export const MovieDetails = ({ id }) => {
                   isMovieFavorite ? ( 
                   <i className="bi bi-star-fill" style={{fontSize: "2rem", color: "red"}}></i>
                 ):(
-                  <i className="bi bi-star" style={{fontSize: "2rem", color: "red"}}></i>
+                  <i className="bi bi-star-fill" style={{fontSize: "2rem", color: "pink"}}></i>
                 )
              } 
                      

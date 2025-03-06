@@ -1,16 +1,3 @@
-/* .text{
-    background-color: rgb(244, 242, 242);
-    width: 60%;
-    height: 40%;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 20px 20px 20px rgb(81, 77, 77);
- }
- .d-flex{
-    align-items: center;
- } */
-
- /* Հիմնական կոնտեյներ */
 .movie-details-container {
    display: flex;
    justify-content: space-between;
@@ -22,14 +9,12 @@
    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
  }
  
- /* Պաստառի հատված */
  .movie-poster {
    width: 300px;
    border-radius: 10px;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
  }
  
- /* Վարկանիշների ցուցակը */
  .ratings-list {
    margin-top: 15px;
    padding: 0;
@@ -47,7 +32,6 @@
    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
  }
  
- /* Տեքստային մանրամասներ */
  .movie-text {
    flex: 1;
    font-size: 16px;
@@ -62,7 +46,7 @@
    color: #007bff;
  }
  
- /* Հավելյալ մանրամասներ */
+
  .movie-icons {
    display: flex;
    align-items: center;
@@ -71,7 +55,6 @@
    color: #555;
  }
  
- /* Հատուկ բաժին՝ մրցանակների համար */
  .movie-awards {
    display: flex;
    align-items: center;
@@ -86,7 +69,6 @@
    height: 25px;
  }
  
- /* Սրտիկի կոճակ՝ սիրելի ֆիլմերի համար */
  .favorite-button {
    background: none;
    border: none;
@@ -100,6 +82,7 @@
  }
  
  .favorite-button:hover {
-   transform: scale(1.1);
- }
+ transform: scale(1.1); 
+   
+}
  

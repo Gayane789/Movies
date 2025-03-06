@@ -127,7 +127,7 @@ const nPages = Math.ceil(state.data.length / moviesPerPage);
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 search-movies">
       <Table data={currentMovies} onRowClick={handleRowClick} />
       <Pagination
                 nPages={nPages}
