@@ -124,9 +124,9 @@ export const MovieDetails = ({ id }) => {
             <button  className="btn btn-link" onClick={handleUpdateFavoriteStatus}> 
               {
                   isMovieFavorite ? ( 
-                  <i className="bi bi-heart-fill" style={{fontSize: "2rem", color: "red"}}></i>
+                  <i className="bi bi-star-fill" style={{fontSize: "2rem", color: "red"}}></i>
                 ):(
-                  <i className="bi bi-heart" style={{fontSize: "2rem", color: "red"}}></i>
+                  <i className="bi bi-star" style={{fontSize: "2rem", color: "red"}}></i>
                 )
              } 
                      

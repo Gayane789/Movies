@@ -1,4 +1,4 @@
-.logo{
+/* .logo{
     display: flex;
     align-items: center;
     gap: 14px;
@@ -19,4 +19,54 @@
     margin-left: 30px;
     background-color: rgb(199, 196, 196);
     border: 3px solid white;
-  }
+  }  */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: lightgrey;
+
+  color: black;
+  padding: 15px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo i {
+  font-size: 32px;
+  color: black;
+}
+
+.logo span {
+  font-size: 1px;
+  color: lightgrey;
+}
+
+.logo h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+  color: black;
+}
+
+.form-control {
+  width: 500px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+  outline: none;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}

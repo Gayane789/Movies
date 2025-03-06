@@ -4,6 +4,7 @@ import axios from 'axios';
 import "./movies.css";
 import { useLocalStorageState } from "../../hooks/use-local-storage-state"; 
 import {Pagination} from "../../components/pagination";
+import { BiSolidStar } from "react-icons/bi";
 
 export const Movies = () => {
   const [moviesState, setMovies] = useLocalStorageState([], "movies");
@@ -33,7 +34,7 @@ const nPages = Math.ceil(moviesState.length / moviesPerPage);
   
     return (
       <div className="background">
-        <i className="bi bi-heart" style={{fontSize: "2rem", color: "red"}}>My Favorite Movies</i> 
+        <i className="bi bi-star" style={{fontSize: "2rem", color: "pink"}}>My  Movies</i> 
         <div className="favorite">
              <Table data={currentMovies} onRowClick={()=>{}} />
         </div>

@@ -1,4 +1,4 @@
-:root {
+ :root {
   --color-light: #fbfcfd;
   --color-dark: #dddddd;
   --color-medium: #f8f7f9;
@@ -6,7 +6,7 @@
   --color-theme: #e7abf6;
   --color-accent: #f9cd0b;
   --color-shadow: #717070;
-}
+} 
 
 h4{
   text-align: center;
@@ -25,7 +25,7 @@ h4{
   width: 50%;
   display: block;
   font-size: 1.3rem;
-  border: 2px solid var(--color-dark);
+  border: 2px solid ;
   background-color: var(--color-dark);
   padding: 0.5rem 1.2rem;
   cursor: pointer;

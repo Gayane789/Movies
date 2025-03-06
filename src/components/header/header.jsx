@@ -12,10 +12,10 @@ export const Header = ()=>{
    },[]); 
   
   return (
-      <header className="bg-secondary text-white p-3 d-flex ">
+      <header className=" p-3 d-flex ">
         <div className="logo">
         <i class="bi bi-film"></i>
-         <span><BiSolidMoviePlay /></span>
+        <span><BiSolidMoviePlay /></span>
           <h1>My Movies</h1>
         </div>
         {activeTab === tab.search && (
