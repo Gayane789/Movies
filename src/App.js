@@ -1,4 +1,3 @@
-
 import React, { useContext } from "react";
 import { Header } from "./components/header/header";
 import { SearchMovies } from "./pages/search-movies/search-movies";

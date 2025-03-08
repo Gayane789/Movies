@@ -8,8 +8,8 @@ export const StartScreen = () => {
 
   return (
     <div className="start">
-      <h2>The Movie Quiz!</h2>
-      <h3>{numberOfQuestions} questions </h3>
+      <h2>Welcome to The Movie Quiz!</h2>
+      <h3>{numberOfQuestions} questions to test your movie knowledge skills</h3>
       <button
         className="btn btn-secondary"
         onClick={() => dispatch({ type: "START" })}

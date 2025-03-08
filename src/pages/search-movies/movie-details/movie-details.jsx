@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { omdbApi } from "../../../api/movie.api";
-import "./movie-details.css";
 import { useLocalStorageState } from "../../../hooks/use-local-storage-state";
-import {Flag} from "../../../components/flag/flag";
-import oscar from "../../../assets/images/oscar.png";
-import {CiAlarmOn } from "react-icons/ci";
-import { FcGlobe } from "react-icons/fc";
-import { FaRegCalendarCheck } from "react-icons/fa";
+import { Flag } from "../../../components/flag/flag";
 
 export const MovieDetails = ({ id }) => {
   const [movie, setMovie] = useState({});
   const [isMovieFavorite, setIsMovieFavorite] = useState(false);
   const [moviesState, setMovies] = useLocalStorageState([], "movies");
-  
-  useEffect(()=>{
-    setIsMovieFavorite(!!moviesState.filter((m) => m.imdbID === id).length)
-  },[id]);
+
+  useEffect(() => {
+    setIsMovieFavorite(!!moviesState.filter((m) => m.imdbID === id).length);
+  }, [id]);
 
   useEffect(() => {
     const getMovie = async () => {
@@ -34,26 +29,27 @@ export const MovieDetails = ({ id }) => {
     }
 
     return () => {
-      console.log("cleanup");
+      // console.log("cleanup");
     };
   }, [id]);
 
-  const handleUpdateFavoriteStatus =  ()=>{
- 
+  const handelUpdateFavoriteStatus = () => {
     const movies = [...moviesState];
-    const movieIndex = movies.find((movie) => movie.imdbID === id);
-    if(movieIndex){
+    const target = movies.find((m) => m.imdbID === id);
+
+    if (target) {
       const index = movies.findIndex((m) => m.imdbID === id);
       movies.splice(index, 1);
       setMovies(movies);
       setIsMovieFavorite(false);
-    }else{
-        movies.push(movie);
-        setMovies(movies);
-        setIsMovieFavorite(true);
+    } else {
+      movies.push(movie);
+      setMovies(movies);
+      setIsMovieFavorite(true);
     }
- 
-  }
+  };
+
+  // console.log(movie.Country);
 
   return (
     <div>
@@ -66,17 +62,41 @@ export const MovieDetails = ({ id }) => {
             className="h-auto rounded d-block"
           />
           <ul className="list-group list-group-flush">
-            {(movie?.Ratings || []).map((rating,index) => (
-              <li  key={rating.Source} className="list-group-item d-flex justify-content-between align-items-center">
-                 {rating.Source}
-                 <span className="badge text-bg-primary rounded-pill">
-                     {rating.Value}
-                 </span>
+            {(movie?.Ratings || []).map((rating, index) => (
+              <li
+                key={rating.Source}
+                className="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {rating.Source}
+                <span className="badge text-bg-primary rounded-pill">
+                  {rating.Value}
+                </span>
               </li>
             ))}
           </ul>
         </div>
-        <div className="text">
+        <div>
+          <p className="text-gray-600 d-flex align-items-center justify-content-between">
+            <span>
+              <strong>Directed by:</strong> {movie.Director}
+            </span>
+            <button
+              className="btn btn-link"
+              onClick={handelUpdateFavoriteStatus}
+            >
+              {isMovieFavorite ? (
+                <i
+                  className="bi-star-fill"
+                  style={{ fontSize: "2rem", color: "rgb(245, 197, 24)" }}
+                ></i>
+              ) : (
+                <i
+                  className="bi-star"
+                  style={{ fontSize: "2rem", color: "rgb(245, 197, 24)" }}
+                ></i>
+              )}
+            </button>
+          </p>
           <p className="text-gray-600">
             <strong>Writer:</strong> {movie.Writer}
           </p>
@@ -91,47 +111,29 @@ export const MovieDetails = ({ id }) => {
           </p>
           <p className="text-gray-600">
             <strong>Countries:</strong>
-            <FcGlobe />
-            {(movie.Country || "").split(", ").map((country, index)=> (
-              <Flag key={country} country={country}/>
+            {(movie.Country || "").split(", ").map((country, index) => (
+              <Flag key={country} country={country} />
             ))}
           </p>
           <p className="text-gray-600">
-            <strong>Released:</strong>
-            <FaRegCalendarCheck />
-             {movie.Released}
+            <strong>Released:</strong> {movie.Released}
           </p>
           <p className="text-gray-600">
-            <strong>Runtime:</strong>
-            <CiAlarmOn/>
-             {movie.Runtime}
+            <strong>Runtime:</strong> {movie.Runtime}
           </p>
           <p className="text-gray-600">
-            <strong>IMDB Votes:</strong> {movie.imdbVotes}
+            <strong>IMDb Votes :</strong> {movie.imdbRating} ({movie.imdbVotes}{" "}
+            votes)
           </p>
-          <p className=" mt-4 text-gray-700"> {movie.Plot}</p>
-          <p className=" mt-2 text-gray-600">
+
+          <p className="mt-4 text-gray-700">{movie.Plot}</p>
+          <p className="mt-2 text-gray-600">
             <strong>Box Office:</strong> {movie.BoxOffice}
           </p>
-          <p className=" mt-2 text-gray-600">
-            <strong>Awards:</strong>
-            <img src={oscar} alt="" width={25} height={25} /> 
-            {movie.Awards}
+          <p className="mt-2 text-gray-600">
+            <strong>Awards:</strong> {movie.Awards}
           </p>
         </div>
-         
-        <div>
-            <button  className="btn btn-link" onClick={handleUpdateFavoriteStatus}> 
-              {
-                  isMovieFavorite ? ( 
-                  <i className="bi bi-star-fill" style={{fontSize: "2rem", color: "red"}}></i>
-                ):(
-                  <i className="bi bi-star-fill" style={{fontSize: "2rem", color: "pink"}}></i>
-                )
-             } 
-                     
-            </button>
-         </div>
       </div>
     </div>
   );

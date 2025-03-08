@@ -13,7 +13,7 @@ export const Table = ({ data, onRowClick}) => {
       <div className="table-container"> 
           <table className="table table-striped mt-3 table-hover">
             <thead className="thead-dark">
-              <tr >
+              <tr>
                 <th>Poster</th>
                 <th>Title</th>
                 <th>Year</th>
@@ -26,17 +26,17 @@ export const Table = ({ data, onRowClick}) => {
               {data.map((movie) => (
                 <tr key={movie.imdbID} onClick={() => onRowClick(movie)}>
                   <td>
-                    <img width="62" src={movie.Poster} alt={movie.Title} />
+                    <img width="50" src={movie.Poster} alt={movie.Title} />
                   </td>
                   <td>{movie.Title}</td>
                   <td>{movie.Year}</td>
                   <td>{movie.Type}</td>
                   <td className="text-md-end">
                      <div className="d-flex justify-content-end">
-                         <button className="btn btn-link " 
+                         <button className="btn btn-link" 
                          onClick={(event)=>handleOpenIMDBMovie(event, movie.imdbID)}>
                           Watch on IMDB
-                          <img src={imdbLogo} alt="" width={40} height={20} />
+                          <img src={imdbLogo} alt="" width={30} height={15} />
                           </button>
                      </div>
                   </td>
@@ -49,4 +49,4 @@ export const Table = ({ data, onRowClick}) => {
     );
   };
 
-  
+ 

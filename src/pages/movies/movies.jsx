@@ -1,49 +1,18 @@
-import {useState, useEffect} from "react";
+import { useLocalStorageState } from "../../hooks/use-local-storage-state";
 import { Table } from "../../components/table/table";
-import axios from 'axios';
 import "./movies.css";
-import { useLocalStorageState } from "../../hooks/use-local-storage-state"; 
-import {Pagination} from "../../components/pagination";
-import { BiSolidStar } from "react-icons/bi";
 
 export const Movies = () => {
-  const [moviesState, setMovies] = useLocalStorageState([], "movies");
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [moviesPerPage] = useState(4);
- 
-  
-  useEffect(() => {
-    axios.get('data.json')
-        .then(res => {
-                setData(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                console.log('There was an error while retrieving the data')
-            })
-}, [])
+  const [moviesState] = useLocalStorageState([], "movies");
 
 
-const indexOfLastMovies = currentPage * moviesPerPage;
-const indexOfFirstMovies = indexOfLastMovies - moviesPerPage;
-const currentMovies = moviesState.slice(indexOfFirstMovies, indexOfLastMovies);
-const nPages = Math.ceil(moviesState.length / moviesPerPage);
- 
-  
-    return (
-      <div className="background">
-        <i className="bi bi-star" style={{fontSize: "2rem", color: "pink"}}>My  Movies</i> 
-        <div className="favorite">
-             <Table data={currentMovies} onRowClick={()=>{}} />
-        </div>
-        <Pagination
-                nPages={nPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-         />
-      </div>
+return (
+    
+    <div className="container mt-4  my-movies">
+       <Table data={moviesState} onRowClick={() => {}} />
+      <i className="bi bi-star" style={{fontSize: "1.5rem", color: "red"}}>My Favorite Movies</i> 
+     </div>
+    
+  );
+};
 
-    );
-  };

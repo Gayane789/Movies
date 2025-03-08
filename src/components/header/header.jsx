@@ -14,7 +14,7 @@ export const Header = ()=>{
   return (
       <header className=" p-3 d-flex ">
         <div className="logo">
-        <i class="bi bi-film"></i>
+        <i className="bi bi-film"></i>
         <span><BiSolidMoviePlay /></span>
           <h1>My Movies</h1>
         </div>

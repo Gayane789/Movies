@@ -1,68 +1,46 @@
-import React, { useState,useContext, useReducer, useEffect, useRef} from "react";
-import axios from 'axios';
+import React, { useContext, useReducer, useEffect, useRef } from "react";
 import { Table } from "../../components/table/table";
 import { Modal } from "../../components/modal/modal";
 import { omdbApi } from "../../api/movie.api";
 import { MovieDetails } from "./movie-details/movie-details";
 import { MoviesContext } from "../../contexts/movies-context";
-import { APP_TITLE } from "../../utils/constants";
+//import { APP_TITLE } from "../../utils/constant";
 import { getAppTitleByMovie } from "../../utils/helpers";
-import {Pagination} from "../../components/pagination";
- 
+const APP_TITLE = "Movies";
 const initialState = {
   data: [],
   open: false,
   selectedMovie: null,
 };
 
-const searchMovieReducer = (state, action) =>{
+const searchMovieReducer = (state, action) => {
   switch (action.type) {
-    case 'SET_DATA'://{ type: "SET_DATA", payload: [] }
-      return {...state, data: action.payload};
-    case 'SET_MODAL_OPEN': // { type: "SET_MODAL_OPEN", payload: false }
-      return {...state, open: action.payload};
-    case 'SET_SELECTED_MOVIE': // { type: "SET_MODAL_OPEN", payload: false }
+    case "SET_DATA": // { type: "SET_DATA", payload: [] }
+      return { ...state, data: action.payload };
+    case "SET_MODAL_OPEN": // { type: "SET_MODAL_OPEN", payload: false }
+      return { ...state, open: action.payload };
+    case "SET_SELECTED_MOVIE": // { type: "SET_MODAL_OPEN", payload: false }
       return {
         ...state,
         open: action.payload.open,
         selectedMovie: action.payload.selectedMovie,
       };
-      default:
-        break;
+    default:
+      break;
   }
 };
+
 export const SearchMovies = () => {
-  const {searchQuery, onSearch} = useContext(MoviesContext);
-   
+  const { searchQuery } = useContext(MoviesContext);
+
   const [state, dispatch] = useReducer(searchMovieReducer, initialState);
-
   const timeoutIdRef = useRef(null);
-  
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [moviesPerPage] = useState(5);
 
-  useEffect(() => {
-    axios.get('data.json')
-        .then(res => {
-          dispatch({type: 'SET_DATA', payload: res.data.results});
-                setLoading(false);
-            })
-            .catch(() => {
-                console.log('There was an error while retrieving the data')
-            })
-}, [])
-
-const indexOfLastMovies = currentPage * moviesPerPage;
-const indexOfFirstMovies = indexOfLastMovies - moviesPerPage;
-const currentMovies = state.data.slice(indexOfFirstMovies, indexOfLastMovies);
-const nPages = Math.ceil(state.data.length / moviesPerPage);
- 
   const fetchMovies = async () => {
     const response = await omdbApi.fetchMoviesBySearch(searchQuery || "");
 
     if (response.success) {
-      dispatch({ type: 'SET_DATA', payload: response.data.Search || [] });
+      dispatch({ type: "SET_DATA", payload: response.data.Search || [] });
     }
   };
 
@@ -76,12 +54,12 @@ const nPages = Math.ceil(state.data.length / moviesPerPage);
     if (movieId && title && year) {
       dispatch({
         type: "SET_SELECTED_MOVIE",
-        payload: { 
-          open:true,
-          selectedMovie:{imdbID: movieId, Title: title, Year: year},
+        payload: {
+          open: true,
+          selectedMovie: { imdbID: movieId, Title: title, Year: year },
         },
       });
-       document.title = getAppTitleByMovie(title, year);
+      document.title = getAppTitleByMovie(title, year);
     }
   }, []);
 
@@ -91,9 +69,10 @@ const nPages = Math.ceil(state.data.length / moviesPerPage);
 
   useEffect(() => {
     clearTimeout(timeoutIdRef.current);
+
     const toId = setTimeout(() => {
       fetchMovies();
-    }, [1000]);
+    }, 1000);
 
     timeoutIdRef.current = toId;
   }, [searchQuery]);
@@ -104,10 +83,10 @@ const nPages = Math.ceil(state.data.length / moviesPerPage);
       payload: {
         open: true,
         selectedMovie: row,
-        },
+      },
     });
 
-    document.title =getAppTitleByMovie(row.Title,row.Year);
+    document.title = getAppTitleByMovie(row.Title, row.Year);
 
     window.history.pushState(
       null,
@@ -119,29 +98,25 @@ const nPages = Math.ceil(state.data.length / moviesPerPage);
   const handleCloseModal = () => {
     dispatch({
       type: "SET_MODAL_OPEN",
-      payload:false, 
-       });
+      payload: false,
+    });
     window.history.pushState("", "", "/");
     document.title = APP_TITLE;
-
   };
 
   return (
-    <div className="container mt-4 search-movies">
-      <Table data={currentMovies} onRowClick={handleRowClick} />
-      <Pagination
-                nPages={nPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-       />
+    <div className="container mt-4  search-movies">
+      <Table data={state.data} onRowClick={handleRowClick} />
       <Modal
         open={state.open}
         onClose={handleCloseModal}
-        title={getAppTitleByMovie(state.selectedMovie?.Title, state.selectedMovie?.Year)}
+        title={getAppTitleByMovie(
+          state.selectedMovie?.Title,
+          state.selectedMovie?.Year
+        )}
       >
-      <MovieDetails id={state.selectedMovie?.imdbID} />
+        <MovieDetails id={state.selectedMovie?.imdbID} />
       </Modal>
-       
     </div>
   );
 };
